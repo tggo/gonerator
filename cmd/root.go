@@ -1,11 +1,17 @@
 package cmd
 
 import (
+	"embed"
 	"os"
 
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
+
+// embedded default templates directory
+//
+//go:embed templates/*
+var staticEmbedDir embed.FS
 
 var (
 	yellow     = color.New(color.FgYellow).SprintFunc()

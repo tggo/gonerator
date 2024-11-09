@@ -17,9 +17,5 @@ var generateCmd = &cobra.Command{
 }
 
 func init() {
-	generateCmd.AddCommand(courseGenerateCmd)
-
 	RootCmd.AddCommand(generateCmd)
-
-	generateCmd.PersistentFlags().StringVarP(&courseID, "course", "c", "", "Course Uniq ID to generate")
 }

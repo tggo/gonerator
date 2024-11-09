@@ -1,4 +1,4 @@
-module gonerator
+module github.com/tggo/gonerator
 
 go 1.23.2
 
