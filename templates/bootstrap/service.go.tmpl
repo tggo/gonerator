@@ -1,0 +1,36 @@
+package services
+
+import (
+	"context"
+	"time"
+
+	paginate "github.com/tggo/mongo-go-pagination"
+	"go.uber.org/zap"
+
+	"{{.Module}}/{{.OutputDirectory}}{{.DomainNamePlural}}"
+	"{{.Module}}/{{.OutputDirectory}}{{.DomainNamePlural}}/model"
+	"{{.Module}}/pkg/utc"
+)
+
+type service struct {
+	{{.DomainName}}Storage {{.DomainNamePlural}}.Repository
+	timeFn func() time.Time
+	logger  *zap.Logger
+}
+
+func New{{.DomainNamePluralCapitalize}}Service({{.DomainName}}Storage {{.DomainNamePlural}}.Repository, logger *zap.Logger) {{.DomainNamePlural}}.Service {
+	return &service{
+		{{.DomainName}}Storage: {{.DomainName}}Storage,
+		timeFn:      utc.DefaultTimeFn(),
+		logger:  logger,
+	}
+}
+
+func (s *service) AllPaginate(ctx context.Context, f *model.{{.DomainNameCapitalize}}Filter) ([]model.{{.DomainNameCapitalize}}, *paginate.PaginationData, error) {
+	list, p, err := s.{{.DomainName}}Storage.AllPaginate(ctx, f)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return list, p, nil
+}

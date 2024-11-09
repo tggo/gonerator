@@ -1,0 +1,52 @@
+package model
+
+import (
+	"go.mongodb.org/mongo-driver/bson"
+)
+
+type {{.DomainNameCapitalize}}Filter struct {
+    IDs []string `json:"ids" query:"ids"`
+
+	SortName  string `json:"sort_name" query:"sort_name"`
+	SortOrder string `json:"sort_order" query:"sort_order"`
+
+	Page    int64 `json:"page" query:"page"`
+	PerPage int64 `json:"per_page" query:"per_page"`
+
+	Projection bson.D
+}
+
+func (f *{{.DomainNameCapitalize}}Filter) GetPerPage() int64 {
+	if f.PerPage == -7 {
+		return 7000
+	}
+
+	if f.PerPage <= 0 {
+		return 10
+	}
+
+	if f.PerPage > 50 {
+		return 50
+	}
+
+	return f.PerPage
+}
+
+func (f *{{.DomainNameCapitalize}}Filter) GetPage() int64 {
+	if f.Page == 0 {
+		return 1
+	}
+
+	return f.Page
+}
+
+func (f *{{.DomainNameCapitalize}}Filter) GetProjection() bson.D {
+	if f.Projection != nil {
+		return f.Projection
+	}
+
+	return bson.D{
+		{"created_at", 1},
+		{"updated_at", 1},
+	}
+}

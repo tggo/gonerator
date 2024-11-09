@@ -1,0 +1,464 @@
+# 1.60.3
+run:
+  timeout: 5m
+  # List of build tags, all linters use it.
+  # Default: [].
+  build-tags:
+    - integration
+    - !integration
+  tests: true
+  go: "1.22"
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+  exclude-dirs:
+      - cdk
+      - api
+      - tmp
+# all available settings of specific linters
+linters-settings:
+  revive:
+    # Enable all available rules.
+    # Default: false
+    # enable-all-rules: true
+
+    # Sets the default failure confidence.
+    # This means that linting errors with less than 0.8 confidence will be ignored.
+    # Default: 0.8
+    # confidence: 0.8
+
+    # Sets the default failure severity.
+    rules:
+      - name: unused-parameter
+        severity: warning
+        disabled: false
+        exclude: [""]
+        arguments:
+          - allowRegex: "^_|^t$|^ctx$|^c$"
+
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#package-comments
+      - name: package-comments
+        severity: warning
+        disabled: false
+        exclude: [""]
+
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#context-as-argument
+      - name: context-as-argument
+        severity: warning
+        disabled: false
+        exclude: [""]
+        arguments:
+          - allowTypesBefore: "*testing.T,*github.com/user/repo/testing.Harness"
+
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#time-equal
+      - name: time-equal
+        severity: warning
+        disabled: false
+        exclude: [""]
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#time-naming
+      - name: time-naming
+        severity: warning
+        disabled: false
+        exclude: [""]
+
+#      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unchecked-type-assertion
+#      - name: unchecked-type-assertion
+#        severity: warning
+#        disabled: false
+#        exclude: [""]
+#        arguments:
+#          - acceptIgnoredAssertionResult: true
+
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unconditional-recursion
+      - name: unconditional-recursion
+        severity: warning
+        disabled: false
+        exclude: [""]
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unexported-naming
+      - name: unexported-naming
+        severity: warning
+        disabled: false
+        exclude: [""]
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unexported-return
+      - name: unexported-return
+        severity: warning
+        disabled: false
+        exclude: [""]
+
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#waitgroup-by-value
+      - name: waitgroup-by-value
+        severity: warning
+        disabled: false
+        exclude: [""]
+
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unreachable-code
+      - name: unreachable-code
+        severity: warning
+        disabled: false
+        exclude: [""]
+
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#string-format
+      - name: string-format
+        severity: warning
+        disabled: false
+        exclude: [""]
+        arguments:
+          - - 'core.WriteError[1].Message'
+            - '/^([^A-Z]|$)/'
+            - must not start with a capital letter
+          - - 'fmt.Errorf[0]'
+            - '/(^|[^\.!?])$/'
+            - must not end in punctuation
+          - - panic
+            - '/^[^\n]*$/'
+            - must not contain line breaks
+
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#string-of-int
+      - name: string-of-int
+        severity: warning
+        disabled: false
+        exclude: [""]
+
+
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#comment-spacings
+      - name: comment-spacings
+        severity: warning
+        disabled: false
+        exclude: [""]
+        arguments:
+          - mypragma
+          - otherpragma
+
+#      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#comments-density
+#      - name: comments-density
+#        severity: warning
+#        disabled: false
+#        exclude: [""]
+#        arguments: [15]
+
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#datarace
+      - name: datarace
+        severity: warning
+        disabled: false
+        exclude: [""]
+
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#deep-exit
+      - name: deep-exit
+        severity: warning
+        disabled: false
+        exclude: [""]
+
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#dot-imports
+      - name: dot-imports
+        severity: warning
+        disabled: false
+        exclude: [""]
+        arguments: []
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#duplicated-imports
+      - name: duplicated-imports
+        severity: warning
+        disabled: false
+        exclude: [""]
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#early-return
+      - name: early-return
+        severity: warning
+        disabled: false
+        exclude: [""]
+        arguments:
+          - "preserveScope"
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#empty-block
+      - name: empty-block
+        severity: warning
+        disabled: false
+        exclude: [""]
+
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#empty-lines
+      - name: empty-lines
+        severity: warning
+        disabled: false
+        exclude: [""]
+
+#      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#enforce-map-style
+#      - name: enforce-map-style
+#        severity: warning
+#        disabled: false
+#        exclude: [""]
+#        arguments:
+#          - "make"
+#      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#enforce-repeated-arg-type-style
+#      - name: enforce-repeated-arg-type-style
+#        severity: warning
+#        disabled: false
+#        exclude: [""]
+#        arguments:
+#          - "short"
+#      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#enforce-slice-style
+#      - name: enforce-slice-style
+#        severity: warning
+#        disabled: false
+#        exclude: [""]
+#        arguments:
+#          - "make"
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#error-naming
+      - name: error-naming
+        severity: warning
+        disabled: false
+        exclude: [""]
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#error-return
+      - name: error-return
+        severity: warning
+        disabled: false
+        exclude: [""]
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#error-strings
+      - name: error-strings
+        severity: warning
+        disabled: false
+        exclude: [""]
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#errorf
+      - name: errorf
+        severity: warning
+        disabled: false
+        exclude: [""]
+
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#identical-branches
+      - name: identical-branches
+        severity: warning
+        disabled: false
+        exclude: [""]
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#if-return
+      - name: if-return
+        severity: warning
+        disabled: false
+        exclude: [""]
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#import-alias-naming
+      - name: import-alias-naming
+        severity: warning
+        disabled: false
+        exclude: [""]
+        arguments:
+          - "^[a-z][a-zA-Z0-9]{0,}[a-zA-Z]$"
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#import-shadowing
+      - name: import-shadowing
+        severity: warning
+        disabled: false
+        exclude: [""]
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#increment-decrement
+      - name: increment-decrement
+        severity: warning
+        disabled: false
+        exclude: [""]
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#indent-error-flow
+      - name: indent-error-flow
+        severity: warning
+        disabled: false
+        exclude: [""]
+        arguments:
+          - "preserveScope"
+#      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#line-length-limit
+##      - name: line-length-limit
+##        severity: warning
+##        disabled: false
+##        exclude: [""]
+##        arguments: [150]
+#      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#argument-limit
+#      - name: argument-limit
+#        severity: warning
+#        disabled: true
+#        exclude: [""]
+#        arguments: [6]
+#
+#      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#banned-characters
+#      - name: banned-characters
+#        severity: warning
+#        disabled: false
+#        exclude: [""]
+#        arguments: ["Ω", "Σ", "σ"]
+
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#struct-tag
+      - name: struct-tag
+        severity: warning
+        disabled: false
+        exclude: [""]
+        arguments:
+          - "json,inline"
+          - "bson,outline,gnu"
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#confusing-results
+      - name: confusing-results
+        severity: warning
+        disabled: false
+        exclude: [""]
+
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#confusing-naming
+      - name: confusing-naming
+        severity: warning
+        disabled: false
+        exclude: [""]
+
+      - name: exported
+        severity: warning
+        disabled: false
+
+
+  errcheck:
+    # report about not checking of errors in type assetions: `a := b.(MyStruct)`;
+    # default is false: such cases aren't reported by default.
+    check-type-assertions: true
+
+    # report about assignment of errors to blank identifier: `num, _ := strconv.Atoi(numStr)`;
+    # default is false: such cases aren't reported by default.
+    check-blank: true
+  govet:
+    # report about shadowed variables
+    enable-all: true
+    disable:
+      - composites
+      - fieldalignment
+  gofmt:
+    # simplify code: gofmt with `-s` option, true by default
+    simplify: true
+  gocyclo:
+    # minimal code complexity to report, 30 by default (but we recommend 10-20)
+    min-complexity: 21
+  dupl:
+    # tokens count to trigger issue, 150 by default
+    threshold: 100
+  stylecheck:
+    # Select the Go version to target.
+    # Default: 1.13
+    # https://staticcheck.io/docs/options#checks
+    checks: [ "all" ]
+    # https://staticcheck.io/docs/options#dot_import_whitelist
+    dot-import-whitelist:
+      - fmt
+    # https://staticcheck.io/docs/options#initialisms
+    initialisms: ["ACL", "API", "ASCII", "CPU", "CSS", "DNS", "EOF", "GUID", "HTML", "HTTP", "HTTPS", "ID", "IP", "JSON", "QPS", "RAM", "RPC", "SLA", "SMTP", "SQL", "SSH", "TCP", "TLS", "TTL", "UDP", "UI", "GID", "UID", "UUID", "URI", "URL", "UTF8", "VM", "XML", "XMPP", "XSRF", "XSS"]
+    # https://staticcheck.io/docs/options#http_status_code_whitelist
+    # http-status-code-whitelist: ["200", "400", "404", "500"]
+  goconst:
+    # minimal length of string constant, 3 by default
+    min-len: 5
+    # minimal occurrences count to trigger, 3 by default
+    min-occurrences: 7
+
+  misspell:
+    # Correct spellings using locale preferences for US or UK.
+    # Default is to use a neutral variety of English.
+    # Setting locale to US will correct the British spelling of 'colour' to 'color'.
+    locale: US
+    ignore-words:
+      - quizes
+  lll:
+    # max line length, lines longer will be reported. Default is 120.
+    # '\t' is counted as 1 character by default, and can be changed with the tab-width option
+    line-length: 512
+    # tab width in spaces. Default to 1.
+    tab-width: 1
+  nakedret:
+    # make an issue if func has more lines of code than this setting and it has naked returns; default is 30
+    max-func-lines: 0
+#  prealloc:
+#    # XXX: we don't recommend using this linter before doing performance profiling.
+#    # For most programs usage of prealloc will be a premature optimization.
+#
+#    # Report preallocation suggestions only on simple loops that have no returns/breaks/continues/gotos in them.
+#    # True by default.
+#    simple: true
+#    range-loops: true # Report preallocation suggestions on range loops, true by default
+#    for-loops: false # Report preallocation suggestions on for loops, false by default
+  gocritic:
+    # Which checks should be enabled; can't be combined with 'disabled-checks';
+    # See https://go-critic.github.io/overview#checks-overview
+    # To check which checks are enabled run `GL_DEBUG=gocritic golangci-lint run`
+    # By default list of stable checks is used.
+    enabled-checks:
+      - tooManyResultsChecker
+      - unnecessaryDefer
+      - unnecessaryBlock
+      - unnamedResult
+      - timeExprSimplify
+      - stringConcatSimplify
+      - sortSlice
+      - commentedOutCode
+      - rangeValCopy
+      - redundantSprint
+      - filepathJoin
+      - dynamicFmtString
+      - dupImport
+#      - hugeParam
+
+    # Which checks should be disabled; can't be combined with 'enabled-checks'; default is empty
+    disabled-checks:
+
+    # Enable multiple checks by tags, run `GL_DEBUG=gocritic golangci-lint` run to see all tags and checks.
+    # Empty list by default. See https://github.com/go-critic/go-critic#usage -> section "Tags".
+#    enabled-tags:
+#      - diagnostic
+#      - style
+#      - performance
+#      - experimental
+#      - opinionated
+
+    settings: # settings passed to gocritic
+      captLocal: # must be valid enabled check name
+        paramsOnly: true
+#      hugeParam:
+#        # Size in bytes that makes the warning trigger.
+#        # Default: 80
+#        sizeThreshold: 255
+#      rangeExprCopy:
+#        # Size in bytes that makes the warning trigger.
+#        # Default: 512
+#        sizeThreshold: 516
+#        # Whether to check test functions
+#        # Default: true
+#        skipTestFuncs: true
+  wsl:
+    # XXX: we don't recommend using this linter before doing performance profiling.
+    # For most programs usage of wsl will be a premature optimization.
+
+  gosec:
+    excludes:
+      - G115
+
+  interfacebloat:
+    # The maximum number of methods allowed for an interface.
+    max: 15
+
+linters:
+  disable-all: true
+  enable:
+    - lll
+    - typecheck
+    - unconvert
+    - unparam
+    - misspell
+    - goimports
+    - goconst
+    - nakedret
+    - gofmt
+    - prealloc
+    - govet
+    - stylecheck
+    - staticcheck
+    - gosimple
+    - bodyclose
+    - decorder
+    - revive
+    - durationcheck
+    - goconst
+    - gosec
+    - nilerr
+    - unparam
+    - wsl
+    - asasalint
+    - errcheck
+    - gocritic # TODO: NEED REFACTOR FOR ACCEPT THIS LINT
+#    - gomnd # TODO: NEED REFACTOR FOR ACCEPT THIS LINT
+#    - gocognit # TODO: NEED REFACTOR FOR ACCEPT THIS LINT
+#    - depguard
+#    - interfacebloat
+#    - gochecknoglobals
+#    - gocyclo
+#    - dupl
+

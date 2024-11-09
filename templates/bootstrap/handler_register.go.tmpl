@@ -1,0 +1,28 @@
+package handlers
+
+import (
+	"github.com/go-playground/validator/v10"
+    "github.com/gofiber/fiber/v2/middleware/session"
+	"go.uber.org/zap"
+
+	appHandlers "{{.Module}}/internal/app"
+	"{{.Module}}/internal/{{.DomainNamePlural}}"
+)
+
+type handler struct {
+	validate            *validator.Validate
+	sessionStorage *session.Store
+	{{.DomainName}}Service {{.DomainNamePlural}}.Service
+	logger              *zap.Logger
+}
+
+func Register(app *appHandlers.Param, {{.DomainName}}Service {{.DomainNamePlural}}.Service) {
+	h := handler{
+		validate:       app.Validator,
+		{{.DomainName}}Service: {{.DomainName}}Service,
+		sessionStorage: app.SessionStorage,
+		logger:         app.Logger.With(zap.String("handlers", "{{.DomainNamePlural}}")),
+	}
+
+    app.Router.Get("/{{.DomainNamePlural}}", app.MiddlewareAuth.Session(), h.{{.DomainNamePlural}}List)
+}

@@ -1,0 +1,27 @@
+package {{.DomainNamePlural}}
+
+import (
+	"context"
+
+	paginate "github.com/tggo/mongo-go-pagination"
+
+	appStorage "{{.Module}}/internal/app/storage"
+	"{{.Module}}/{{.OutputDirectory}}{{.DomainNamePlural}}/model"
+)
+
+type Service interface {
+	AllPaginate(ctx context.Context, f *model.{{.DomainNameCapitalize}}Filter) ([]model.{{.DomainNameCapitalize}}, *paginate.PaginationData, error)
+}
+
+type Repository interface {
+    Insert(ctx context.Context, {{.DomainName}} *model.{{.DomainNameCapitalize}}) error
+    Update(ctx context.Context, {{.DomainName}} *model.{{.DomainNameCapitalize}}) error
+    Delete(ctx context.Context, id string) error
+    GetByID(ctx context.Context, id string) (*model.{{.DomainNameCapitalize}}, error)
+  	AllPaginate(ctx context.Context, f *model.{{.DomainNameCapitalize}}Filter) ([]model.{{.DomainNameCapitalize}}, *paginate.PaginationData, error)
+}
+
+type RepositoryInitializer interface {
+    Repository
+  	appStorage.Setuper
+}

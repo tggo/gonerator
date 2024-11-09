@@ -1,0 +1,34 @@
+package model
+
+import (
+    "time"
+
+    "github.com/rs/xid"
+)
+
+type {{.DomainNameCapitalize}} struct {
+    ID string `json:"id" bson:"_id"`
+    CreatedAt time.Time `json:"created_at" bson:"created_at"`
+    CreatedBy string `json:"created_by" bson:"created_by"`
+    UpdatedAt time.Time `json:"updated_at" bson:"updated_at"`
+    UpdatedBy string `json:"updated_by" bson:"updated_by"`
+
+    // PublishedVersion is the audit_id of the published version of the card
+    PublishedVersion string `json:"published_version,omitempty" bson:"published_version,omitempty"`
+
+    // LastAuditID what is the last audit_id of the card, this is used to track the last version of the card
+    LastAuditID string `json:"last_audit_id,omitempty" bson:"last_audit_id,omitempty"`
+}
+
+func New{{.DomainNameCapitalize}}() *{{.DomainNameCapitalize}} {
+	return &{{.DomainNameCapitalize}}{
+		ID:         xid.New().String(),
+	}
+}
+
+type {{.DomainNameCapitalize}}UpdateRequest struct {
+	ID string `json:"id" validate:"required"`
+
+	UpdatedAt time.Time `json:"updated_at" bson:"updated_at"`
+	UpdatedBy string    `json:"updated_by" bson:"updated_by"`
+}

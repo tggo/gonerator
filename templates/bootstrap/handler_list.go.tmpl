@@ -1,0 +1,29 @@
+package handlers
+
+import (
+	"github.com/gofiber/fiber/v2"
+
+    "{{.Module}}/internal/app/fiberx"
+	appLogger "{{.Module}}/internal/app/logger"
+	"{{.Module}}/{{.OutputDirectory}}{{.DomainNamePlural}}/views"
+)
+
+
+func (h *handler) {{.DomainNamePlural}}List(c *fiber.Ctx) error {
+	logger := appLogger.WithFieldsFromFiberCtx(c, "{{.DomainNamePlural}}List", h.logger)
+	_ = logger
+
+
+    list := []*views.{{.DomainNameCapitalize}}Response{
+        {ID: "1"},
+    }
+
+
+    {{.DomainNamePlural}}Index := views.{{.DomainNameCapitalize}}Index(list)
+    listPage := views.{{.DomainNameCapitalize}}Page(
+        layouts.NewInternalOptions(c).SetTitle("{{.DomainNamePluralCapitalize}} List"),
+        {{.DomainNamePlural}}Index,
+    )
+
+	return fiberx.Render(c, listPage)
+}
