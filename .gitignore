@@ -9,18 +9,10 @@ build/development/*
 /docs/
 /tmp/
 
-
-FirebaseServiceAccountKey.json
-.idea/httpRequests/http-requests-log.http
-
 node_modules/
 
 .DS_Store
 
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
 /output-sam.yaml
 /todo.md
 /avatar.png
@@ -28,7 +20,6 @@ node_modules/
 /avatars.png
 /tests/http-client.private.env.json
 /gen/
-/cmd/doc-serve/static/*.yaml
 /.aws-sam/
 /coverage.out
 
@@ -36,16 +27,3 @@ node_modules/
 .terraform*
 terraform.tfstate
 terraform.tfstate.backup
-/tests/amity.http
-/authors.json
-/cohorts.json
-/dirs.json
-/domains.json
-/exts.json
-/stack_plot.png
-/survival.json
-/.storekit.json
-/.privado/cpg.bin
-/.privado/performancematrix.csv
-/.privado/privado.json
-/.privado/unresolved-flow.json
